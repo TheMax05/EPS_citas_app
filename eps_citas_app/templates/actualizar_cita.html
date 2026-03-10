@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Actualizar Cita{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Actualizar Cita Médica</h1>
+  <p>Modifica los datos de la cita seleccionada.</p>
+</div>
+
+<div class="form-card">
+  <h2>✏️ Editar Cita</h2>
+  <form method="POST" action="{{ url_for('actualizar_cita_view', cita_id=cita.id) }}">
+    <div class="form-grid">
+      <div class="field">
+        <label for="medico">Médico Asignado</label>
+        <input type="text" id="medico" name="medico" value="{{ cita.medico }}" required />
+      </div>
+      <div class="field">
+        <label for="tipo_cita">Tipo de Cita</label>
+        <select id="tipo_cita" name="tipo_cita" required>
+          <option value="General" {% if cita.tipo_cita == 'General' %}selected{% endif %}>General</option>
+          <option value="Odontología" {% if cita.tipo_cita == 'Odontología' %}selected{% endif %}>Odontología</option>
+          <option value="Especialista" {% if cita.tipo_cita == 'Especialista' %}selected{% endif %}>Especialista</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fecha">Fecha</label>
+        <input type="date" id="fecha" name="fecha" value="{{ cita.fecha }}" required />
+      </div>
+      <div class="field">
+        <label for="hora">Hora</label>
+        <input type="time" id="hora" name="hora" value="{{ cita.hora }}" required />
+      </div>
+    </div>
+
+    <div class="btn-actions">
+      <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+      <a href="{{ url_for('consulta_cita') }}" class="btn btn-secondary">← Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

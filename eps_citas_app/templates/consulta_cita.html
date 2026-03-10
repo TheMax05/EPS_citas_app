@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}Consultar Cita{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Consultar Cita Médica</h1>
+  <p>Ingresa el número de identificación del paciente para ver sus citas.</p>
+</div>
+
+<div class="form-card">
+  <h2>🔍 Buscar Cita</h2>
+  <form method="POST" action="{{ url_for('consulta_cita') }}">
+    <div class="form-grid">
+      <div class="field full">
+        <label for="documento">Número de Identificación</label>
+        <input type="text" id="documento" name="documento" value="{{ documento }}"
+               placeholder="Ej: 1020304050" required />
+      </div>
+    </div>
+    <div class="btn-actions">
+      <button type="submit" class="btn btn-primary">🔍 Consultar</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">← Volver</a>
+    </div>
+  </form>
+</div>
+
+{% if resultados %}
+<div class="results-section">
+  <h3>Citas encontradas para documento: <strong>{{ documento }}</strong></h3>
+
+  {% for cita in resultados %}
+  <div class="cita-card">
+    <div class="cita-header">
+      <div>
+        <strong>{{ cita.nombre }} {{ cita.apellido }}</strong>
+        <span style="color:var(--muted); font-size:.85rem; margin-left:.5rem;">| EPS: {{ cita.eps }}</span>
+      </div>
+      <div style="display:flex; gap:.5rem; align-items:center;">
+        <span class="cita-badge">{{ cita.tipo_cita }}</span>
+        <a href="{{ url_for('actualizar_cita_view', cita_id=cita.id) }}" class="btn btn-secondary" style="padding:.3rem .85rem; font-size:.8rem;">✏️ Actualizar</a>
+      </div>
+    </div>
+
+    <div class="cita-info">
+      <div class="info-item">
+        <span class="lbl">Médico</span>
+        <span class="val">{{ cita.medico }}</span>
+      </div>
+      <div class="info-item">
+        <span class="lbl">Fecha</span>
+        <span class="val">{{ cita.fecha }}</span>
+      </div>
+      <div class="info-item">
+        <span class="lbl">Hora</span>
+        <span class="val">{{ cita.hora }}</span>
+      </div>
+      <div class="info-item">
+        <span class="lbl">Dirección EPS</span>
+        <span class="val">{{ cita.direccion_eps }}</span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

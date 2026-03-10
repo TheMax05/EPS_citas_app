@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Inicio – EPS CitaMédica{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1>Sistema de Gestión<br>de Citas Médicas</h1>
+  <p>Plataforma digital para registrar pacientes, reservar y consultar citas médicas de manera rápida y segura.</p>
+</div>
+
+<div class="cards-grid">
+  <a href="{{ url_for('registro_paciente') }}" class="card">
+    <span class="emoji">👤</span>
+    <h3>Registrar Paciente</h3>
+    <p>Ingresa los datos personales y de afiliación del paciente.</p>
+  </a>
+
+  <a href="{{ url_for('reservar_cita_view') }}" class="card">
+    <span class="emoji">📅</span>
+    <h3>Reservar Cita</h3>
+    <p>Asigna médico, tipo de cita, fecha y hora de atención.</p>
+  </a>
+
+  <a href="{{ url_for('consulta_cita') }}" class="card">
+    <span class="emoji">🔍</span>
+    <h3>Consultar Cita</h3>
+    <p>Consulta la información de citas por número de documento.</p>
+  </a>
+</div>
+{% endblock %}
